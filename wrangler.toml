@@ -5,4 +5,4 @@ compatibility_date = "2026-10-01"
 [[d1_databases]]
 binding = "DB"
 database_name = "chengdu-map-notes"
-database_id = "local-dev-placeholder"
+database_id = "2db01cbd-cac6-4379-bb19-4859b9bd1905"
