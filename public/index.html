@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <title>成都地图笔记</title>
+  <meta name="theme-color" content="#3d3a4b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="地图笔记">
+  <link rel="apple-touch-icon" href="icon-180.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="map"></div>
+
+  <!-- 顶部：搜索 + 筛选 -->
+  <div id="topbar">
+    <form id="search-form" autocomplete="off">
+      <input id="search-input" type="search" placeholder="搜索成都的地址或地点…" enterkeyhint="search">
+      <button type="submit">搜索</button>
+    </form>
+    <div id="filters">
+      <button class="chip active" data-filter="all">全部</button>
+      <button class="chip" data-filter="gym"><i class="dot gym"></i>健身房</button>
+      <button class="chip" data-filter="note"><i class="dot note"></i>笔记</button>
+      <button class="chip" id="list-btn">☰ 列表</button>
+    </div>
+    <ul id="search-results" hidden></ul>
+  </div>
+
+  <!-- 右下角：选点 / 定位 -->
+  <div id="fabs">
+    <button id="locate-btn" class="fab small" title="我的位置">◎</button>
+    <button id="pick-btn" class="fab" title="在地图上选点">＋</button>
+  </div>
+  <div id="pick-hint" hidden>点击地图选择一个位置 <button id="pick-cancel">取消</button></div>
+
+  <!-- 底部卡片 -->
+  <div id="sheet" hidden>
+    <div class="sheet-handle"></div>
+    <div id="sheet-body"></div>
+  </div>
+
+  <!-- 列表 -->
+  <div id="list-panel" hidden>
+    <div class="panel-head">
+      <strong>所有地点</strong>
+      <button id="list-close">关闭</button>
+    </div>
+    <ul id="list-items"></ul>
+  </div>
+
+  <!-- 登录 -->
+  <div id="login" hidden>
+    <form id="login-form">
+      <h2>成都地图笔记</h2>
+      <label>你的名字<input id="login-name" required placeholder="例如：小王"></label>
+      <label>共享口令<input id="login-pass" type="password" required></label>
+      <button type="submit">进入</button>
+      <p id="login-error"></p>
+    </form>
+  </div>
+
+  <div id="toast" hidden></div>
+
+  <script src="config.js"></script>
+  <script src="config.local.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

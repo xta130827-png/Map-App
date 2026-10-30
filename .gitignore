@@ -1,0 +1,4 @@
+.wrangler/
+.dev.vars
+public/config.local.js
+node_modules/
