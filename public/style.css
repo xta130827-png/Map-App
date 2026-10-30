@@ -103,7 +103,7 @@ h4 { margin: 4px 0 6px; font-size: 14px; }
 #list-panel { position: absolute; inset: 0; z-index: 30; background: var(--bg); display: flex; flex-direction: column;
   padding-top: var(--safe-top); }
 .panel-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--line); }
-.panel-head button { border: 0; background: #f1f0f5; border-radius: 8px; padding: 5px 12px; }
+.panel-head button { border: 0; background: #f1f0f5; border-radius: 8px; padding: 5px 12px; margin-left: 4px; }
 #list-items { list-style: none; margin: 0; padding: 0 0 var(--safe-bottom); overflow-y: auto; flex: 1; }
 #list-items li { padding: 12px 16px; border-bottom: 1px solid var(--line); cursor: pointer; display: flex; gap: 10px; align-items: flex-start; }
 #list-items li .dot { margin-top: 6px; flex: none; }

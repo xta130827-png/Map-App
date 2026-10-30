@@ -263,6 +263,47 @@
   });
   $('#list-close').addEventListener('click', () => { $('#list-panel').hidden = true; });
 
+  // ---------- 导出 ----------
+  function download(filename, content, type) {
+    const url = URL.createObjectURL(new Blob([content], { type }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+  function stamp() {
+    const d = new Date();
+    const p = (n) => String(n).padStart(2, '0');
+    return `${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}`;
+  }
+
+  // 先从服务器取最新数据，保证导出的是两个人的全部内容
+  async function exportData(kind) {
+    try {
+      const places = await api('GET', 'places');
+      if (kind === 'json') {
+        const data = { app: 'chengdu-map-notes', version: 1, exported_at: new Date().toISOString(), places };
+        download(`地图笔记备份-${stamp()}.json`, JSON.stringify(data, null, 2), 'application/json');
+      } else {
+        const cell = (v) => `"${String(v ?? '').replace(/"/g, '""')}"`;
+        const rows = [['地点名称', '地址', '健身房', '经度', '纬度', '添加人', '笔记作者', '笔记时间', '笔记内容']];
+        for (const p of places) {
+          const base = [p.name, p.address, p.is_gym ? '是' : '否', p.lng, p.lat, p.created_by];
+          if (!p.notes.length) rows.push([...base, '', '', '']);
+          for (const n of p.notes) rows.push([...base, n.author, fmtTime(n.created_at), n.content]);
+        }
+        // 开头加 BOM，Excel 打开中文才不会乱码
+        download(`地图笔记-${stamp()}.csv`, '﻿' + rows.map((r) => r.map(cell).join(',')).join('\r\n'), 'text/csv;charset=utf-8');
+      }
+      toast(`已导出 ${places.length} 个地点`);
+    } catch { /* api() 已提示 */ }
+  }
+  $('#export-json').addEventListener('click', () => exportData('json'));
+  $('#export-csv').addEventListener('click', () => exportData('csv'));
+
   // ---------- 底部卡片 ----------
   function closeSheet() {
     $('#sheet').hidden = true;
